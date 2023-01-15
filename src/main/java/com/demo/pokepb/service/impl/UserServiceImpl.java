@@ -1,8 +1,10 @@
 package com.demo.pokepb.service.impl;
 
 import com.demo.pokepb.dto.UserDto;
+import com.demo.pokepb.entity.Pokemon;
 import com.demo.pokepb.entity.Role;
 import com.demo.pokepb.entity.User;
+import com.demo.pokepb.mapper.PokemonMapper;
 import com.demo.pokepb.repository.RoleRepository;
 import com.demo.pokepb.repository.UserRepository;
 import com.demo.pokepb.service.UserService;
@@ -19,19 +21,21 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private PasswordEncoder passwordEncoder;
+    private PokemonMapper pokemonMapper;
 
     public UserServiceImpl(UserRepository userRepository,
                            RoleRepository roleRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           PokemonMapper pokemonMapper) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.pokemonMapper = pokemonMapper;
     }
 
     @Override
     public void saveUser(UserDto userDto) {
         User user = new User();
-        user.setName(userDto.getFirstName() + " " + userDto.getLastName());
         user.setEmail(userDto.getEmail());
 
         //encrypt the password once we integrate spring security
@@ -51,17 +55,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> convertEntityToDto(user))
-                .collect(Collectors.toList());
+    public List<Pokemon> findAllPokemon() {
+        return pokemonMapper.findAllPokemon();
     }
 
     private UserDto convertEntityToDto(User user){
         UserDto userDto = new UserDto();
-        String[] name = user.getName().split(" ");
-        userDto.setFirstName(name[0]);
-        userDto.setLastName(name[1]);
         userDto.setEmail(user.getEmail());
         return userDto;
     }
