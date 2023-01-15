@@ -12,4 +12,8 @@ public interface UserService {
     User findByEmail(String email);
 
     List<Pokemon> findAllPokemon();
+
+    Pokemon findIdPokemon(int id);
+
+    int updateIdPokemon(int id, String type1, String type2);
 }

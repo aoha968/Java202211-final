@@ -59,6 +59,13 @@ public class UserServiceImpl implements UserService {
         return pokemonMapper.findAllPokemon();
     }
 
+    @Override
+    public Pokemon findIdPokemon(int id) { return pokemonMapper.findIdPokemon(id); }
+
+    @Override
+    public int updateIdPokemon(int id, String type1, String type2) { return pokemonMapper.updateIdPokemon(id, type1, type2); };
+
+
     private UserDto convertEntityToDto(User user){
         UserDto userDto = new UserDto();
         userDto.setEmail(user.getEmail());
