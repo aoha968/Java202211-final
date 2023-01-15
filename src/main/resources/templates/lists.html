@@ -37,13 +37,17 @@
         <thead class="table-dark">
         <tr>
             <th>No</th>
-            <th>Name</th>
+            <th>モンスター名</th>
+            <th>タイプ1</th>
+            <th>タイプ2</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="list: ${lists}">
             <td th:text="${list.id}"></td>
             <td th:text="${list.name}"></td>
+            <td th:text="${list.type1}"></td>
+            <td th:text="${list.type2}"></td>
         </tr>
         </tbody>
     </table>
