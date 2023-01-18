@@ -1,10 +1,17 @@
 DROP TABLE IF EXISTS pokemon;
+DROP TABLE IF EXISTS task;
 
 CREATE TABLE pokemon (
  id int unsigned AUTO_INCREMENT,
  name VARCHAR(20) NOT NULL,
  type1 VARCHAR(20) NOT NULL,
  type2 VARCHAR(20),
+ PRIMARY KEY(id)
+);
+
+CREATE TABLE task (
+ id int unsigned AUTO_INCREMENT,
+ detail VARCHAR(20) NOT NULL,
  PRIMARY KEY(id)
 );
 
@@ -27,3 +34,6 @@ INSERT INTO pokemon (id, name, type1, type2) VALUES (16, "ポッポ", "？？？
 INSERT INTO pokemon (id, name, type1, type2) VALUES (17, "ピジョン", "？？？", "？？？");
 INSERT INTO pokemon (id, name, type1, type2) VALUES (18, "ピジョット", "？？？", "？？？");
 INSERT INTO pokemon (id, name, type1, type2) VALUES (19, "コラッタ", "？？？", "？？？");
+
+INSERT INTO task (id, detail) VALUES (1, "ミッション1");
+INSERT INTO task (id, detail) VALUES (2, "ミッション2");
