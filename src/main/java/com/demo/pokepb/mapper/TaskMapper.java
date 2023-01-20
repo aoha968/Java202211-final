@@ -17,8 +17,8 @@ public interface TaskMapper {
     int updateIdTask(@Param("id") int id, @Param("detail") String detail);
 
     @Delete("DELETE FROM task WHERE id=#{id}")
-    boolean deleteIdTask(@Param("id") int id, @Param("detail") String detail);
+    boolean deleteIdTask(@Param("id") int id);
 
-    @Insert("INSERT INTO task (detail) VALUES (#detail)")
+    @Insert("INSERT INTO task (detail) VALUES (#{detail})")
     boolean registerTask(@Param("detail") String detail);
 }

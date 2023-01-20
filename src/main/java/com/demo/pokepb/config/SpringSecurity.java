@@ -34,7 +34,10 @@ public class SpringSecurity {
                                 .requestMatchers("/pictorial/lists/{id}").hasRole("ADMIN")
                                 .requestMatchers("/pictorial/lists/{id}/edit").hasRole("ADMIN")
                                 .requestMatchers("/pictorial/lists/update").hasRole("ADMIN")
-                                .requestMatchers("/task/tasks").hasRole("ADMIN")
+                                .requestMatchers("/task/tasks/**").hasRole("ADMIN")
+                                .requestMatchers("/task/register").hasRole("ADMIN")
+                                .requestMatchers("/task/add").hasRole("ADMIN")
+
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

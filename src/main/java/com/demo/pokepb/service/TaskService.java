@@ -1,7 +1,6 @@
 package com.demo.pokepb.service;
 
 import com.demo.pokepb.entity.Task;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,7 +11,7 @@ public interface TaskService {
 
     int updateIdTask(int id, String detail);
 
-    boolean deleteIdTask(int id, String detail);
+    boolean deleteIdTask(int id);
 
     boolean registerTask(String detail);
 }

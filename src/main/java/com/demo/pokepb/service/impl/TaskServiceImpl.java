@@ -29,8 +29,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public boolean deleteIdTask(int id, String detail) {
-        return taskMapper.deleteIdTask(id, detail);
+    public boolean deleteIdTask(int id) {
+        return taskMapper.deleteIdTask(id);
     }
 
     @Override
