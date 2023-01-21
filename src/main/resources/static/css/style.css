@@ -1,6 +1,8 @@
 .bg01 {
+    min-height: 100%;
     background-image: url(../images/bg_01.jpg);
     background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .bg02 {
@@ -39,7 +41,10 @@
     background-image: url(../images/bg_10.jpg);
 }
 
-
 .pd-top {
    padding-top: 60px;
+}
+
+.navbar {
+    display: flex;
 }
