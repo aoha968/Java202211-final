@@ -4,49 +4,45 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>タスク追加画面</title>
+    <title>ミッション編集画面</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
 </head>
-<body>
+<body class="bg08">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Registration and Login System</a>
+        <a class="navbar-brand">Pokedex ▶︎ ミッション編集</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/register}">Register</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/pictorial/lists}">図鑑</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/pictorial/lists}">図鑑一覧</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/task/tasks}">タスク</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/task/tasks}">ミッション一覧</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/task/register}">タスク登録</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/task/register}">ミッション登録</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container">
-    <div class="row">
-        <h1>タスク追加</h1>
-    </div>
+    <div class="pd-top"></div>
     <form th:action="@{/task/tasks/update}" th:object="${edit}" th:method="post">
         <div>
             <input type="hidden" class="form-control" th:field="*{id}">
             <div class="row mx-md-n5">
-                <div class="col-2 pt-3 border bg-light">タスク<span class="text-danger">※</span></div>
+                <div class="col-2 pt-3 border bg-light">ミッション<span class="text-danger">※</span></div>
                 <div class="col py-2 border">
                     <input type="text" class="form-control" th:field="*{detail}">
                 </div>
