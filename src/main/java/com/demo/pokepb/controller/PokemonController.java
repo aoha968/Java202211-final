@@ -29,8 +29,14 @@ public class PokemonController {
      */
     @GetMapping("/pictorial/lists/{id}")
     public String detailEditPokemon(@PathVariable("id") int id, Model model) {
-        model.addAttribute("details", pokemonService.findIdPokemon(id));
-        return "pictorial/details";
+        if(id == 0 || id >= 152) {
+            /* 想定外のidが要求された場合 */
+            return "failsafe/failsafe";
+        } else {
+            /* 初代ポケモンは151匹。増えることはない。 */
+            model.addAttribute("details", pokemonService.findIdPokemon(id));
+            return "pictorial/details";
+        }
     }
 
     /***
@@ -38,8 +44,14 @@ public class PokemonController {
      */
     @GetMapping("/pictorial/lists/{id}/edit")
     public String editPokemon(@PathVariable("id") int id, Model model) {
-        model.addAttribute("edit", pokemonService.findIdPokemon(id));
-        return "pictorial/edit";
+        if(id == 0 || id >= 152) {
+            /* 想定外のidが要求された場合 */
+            return "failsafe/failsafe";
+        } else {
+            /* 初代ポケモンは151匹。増えることはない。 */
+            model.addAttribute("edit", pokemonService.findIdPokemon(id));
+            return "pictorial/edit";
+        }
     }
 
     /***
@@ -55,8 +67,8 @@ public class PokemonController {
             /* 更新成功した場合はポケモン詳細画面に遷移 */
             return "redirect:/pictorial/lists/" + pokemon.getId();
         }else{
-            /* 更新失敗した場合は編集画面を再度表示させる */
-            return "redirect:/pictorial/lists/" + pokemon.getId() + "/edit";
+            /* 更新失敗した場合はエラー */
+            return "failsafe/failsafe";
         }
     }
 }

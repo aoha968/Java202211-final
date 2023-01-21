@@ -62,4 +62,12 @@ public class AuthController {
         userService.saveUser(user);
         return "redirect:/register?success";
     }
+
+    /***
+     * フェールセーフ画面表示
+     */
+    @RequestMapping("/failsafe")
+    public String error() {
+        return "failsafe/failsafe";
+    }
 }

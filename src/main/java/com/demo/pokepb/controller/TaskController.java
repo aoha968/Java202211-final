@@ -44,7 +44,7 @@ public class TaskController {
             return "redirect:/task/tasks";
         }else{
             /* 追加失敗した場合は追加画面を再度表示させる */
-            return "redirect:/task/register";
+            return "failsafe/failsafe";
         }
     }
 
@@ -79,8 +79,8 @@ public class TaskController {
             /* 更新成功した場合はタスク詳細画面に遷移 */
             return "redirect:/task/tasks/" + task.getId();
         }else{
-            /* 更新失敗した場合は編集画面を再度表示させる */
-            return "redirect:/task/tasks/" + task.getId() + "/edit";
+            /* 更新失敗した場合 */
+            return "failsafe/failsafe";
         }
     }
 
@@ -93,7 +93,7 @@ public class TaskController {
             return "redirect:/task/tasks";
         } else {
             /* 更新失敗した場合はエラー画面に遷移 */
-            return "redirect:/task/tasks";
+            return "failsafe/failsafe";
         }
 
     }

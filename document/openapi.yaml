@@ -89,7 +89,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【1 <= id <= 151】ポケモン図鑑詳細表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑詳細表示に失敗する。※処理を見直す
+          description: 【1 <= id <= 151】ポケモン図鑑詳細表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑詳細表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
 
   /pictorial/lists/{id}/edit:
     get:
@@ -105,7 +105,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【1 <= id <= 151】ポケモン図鑑編集表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑編集表示に失敗する。※処理を見直す
+          description: 【1 <= id <= 151】ポケモン図鑑編集表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑編集表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
 
   /pictorial/lists/update:
     post:
@@ -162,7 +162,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【idが存在する】ミッション詳細表示に成功する。【idが存在しない】ミッション詳細表示に失敗する。※処理を見直す
+          description: 【idが存在する】ミッション詳細表示に成功する。【それ以外】ミッション詳細表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
 
   /task/tasks/{id}/edit:
     get:
@@ -178,7 +178,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【idが存在する】ミッション編集画面表示に成功する。【idが存在しない】ミッション編集画面表示に失敗する。※処理を見直す
+          description: 【idが存在する】ミッション編集画面表示に成功する。【それ以外】ミッション編集画面表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
 
   /task/tasks/update:
     post:
@@ -215,7 +215,7 @@ paths:
             type: integer
       responses:
         '302':
-          description: 【idが存在する時】ミッション削除に成功する。/task/tasksに遷移する。【それ以外】ミッション削除に失敗する。/task/tasksに遷移する。※処理を見直す
+          description: 【idが存在する時】ミッション削除に成功する。/task/tasksに遷移する。【それ以外】ミッション削除に失敗する。/failsafe/failsafeのエラー画面に遷移する。
 
   /task/register:
     get:
