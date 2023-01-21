@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PokemonController {
-    private PokemonService pokemonService;
+    private final PokemonService pokemonService;
 
     public PokemonController(PokemonService pokemonService) {
         this.pokemonService = pokemonService;
@@ -48,7 +48,7 @@ public class PokemonController {
      * 失敗の場合は編集画面へ戻る
      */
     @RequestMapping(value = "/pictorial/lists/update", method = RequestMethod.POST)
-    public String updatePokemon(@Validated @ModelAttribute Pokemon pokemon, Model model) {
+    public String updatePokemon(@Validated @ModelAttribute Pokemon pokemon) {
         // ポケモンの更新
         int update = pokemonService.updateIdPokemon(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
         if(update == 1){
