@@ -37,15 +37,7 @@ public class TaskController {
      */
     @RequestMapping(value = "/task/add", method = RequestMethod.POST)
     public String registerTask(@RequestParam String addText) {
-        boolean result;
-        result = taskService.registerTask(addText);
-        if(result == true) {
-            /* 追加成功した場合はタスク一覧画面に遷移 */
-            return "redirect:/task/tasks";
-        }else{
-            /* 追加失敗した場合は追加画面を再度表示させる */
-            return "failsafe/failsafe";
-        }
+        return taskService.registerTask(addText);
     }
 
     /***
@@ -53,8 +45,7 @@ public class TaskController {
      */
     @GetMapping("/task/tasks/{id}")
     public String detailEditTask(@PathVariable("id") int id, Model model) {
-        model.addAttribute("details", taskService.findIdTask(id));
-        return "task/details";
+        return taskService.findIdTask(id, "details", model);
     }
 
     /***
@@ -62,8 +53,7 @@ public class TaskController {
      */
     @GetMapping("/task/tasks/{id}/edit")
     public String editTask(@PathVariable("id") int id, Model model) {
-        model.addAttribute("edit", taskService.findIdTask(id));
-        return "task/edit";
+        return taskService.findIdTask(id, "edit", model);
     }
 
     /***
@@ -73,28 +63,11 @@ public class TaskController {
      */
     @RequestMapping(value = "/task/tasks/update", method = RequestMethod.POST)
     public String updateTask(@Validated @ModelAttribute Task task) {
-        // タスクの更新
-        int update = taskService.updateIdTask(task.getId(), task.getDetail());
-        if(update == 1){
-            /* 更新成功した場合はタスク詳細画面に遷移 */
-            return "redirect:/task/tasks/" + task.getId();
-        }else{
-            /* 更新失敗した場合 */
-            return "failsafe/failsafe";
-        }
+        return taskService.updateIdTask(task.getId(), task.getDetail());
     }
 
-    @GetMapping("/task/tasks/delete/{id}")
+    @RequestMapping(value = "/task/tasks/delete/{id}", method = RequestMethod.POST)
     public String deleteTask(@PathVariable("id") int id) {
-        boolean result;
-        result = taskService.deleteIdTask(id);
-        if(result == true){
-            /* 更新成功した場合はタスク一覧画面に遷移 */
-            return "redirect:/task/tasks";
-        } else {
-            /* 更新失敗した場合はエラー画面に遷移 */
-            return "failsafe/failsafe";
-        }
-
+        return taskService.deleteIdTask(id);
     }
 }

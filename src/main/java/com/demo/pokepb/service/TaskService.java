@@ -1,17 +1,18 @@
 package com.demo.pokepb.service;
 
 import com.demo.pokepb.entity.Task;
+import org.springframework.ui.Model;
 
 import java.util.List;
 
 public interface TaskService {
     List<Task> findAllTask();
 
-    Task findIdTask(int id);
+    String findIdTask(int id, String request, Model model);
 
-    int updateIdTask(int id, String detail);
+    String updateIdTask(int id, String detail);
 
-    boolean deleteIdTask(int id);
+    String deleteIdTask(int id);
 
-    boolean registerTask(String detail);
+    String registerTask(String detail);
 }

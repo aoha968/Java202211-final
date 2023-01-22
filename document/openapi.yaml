@@ -4,6 +4,76 @@ info:
   title: Pokedex Application
   description: >-
     初代ポケモン151匹を表示するポケモン図鑑もどき。
+    
+    
+    以下の機能をもつ。
+    
+    
+    【ログイン登録】
+    
+    
+    メールアドレスとパスワードを登録する。
+    
+    
+    メールアドレスが既に登録されている場合は登録に失敗する。
+    
+    
+    【ログイン処理】
+    
+    
+    メールアドレスが登録されている場合はログインに成功する。
+    
+    
+    登録されていない場合はログインに失敗する。
+    
+    
+    【図鑑一覧表示】
+    
+    
+    151匹のポケモンを表示する。
+    
+    
+    【図鑑詳細表示】
+    
+    
+    選択したポケモン詳細を表示する。
+    
+    
+    【図鑑編集】
+    
+    
+    タイプ1、2を編集する。それ以外の項目は編集不可。
+    
+    
+    【タスク登録】
+    
+    
+    タスクを新規登録する。
+    
+    
+    【タスク一覧表示】
+    
+    
+    登録されているタスクの一覧を表示する。
+    
+    
+    【タスク詳細表示】
+    
+    
+    １つのタスク詳細を表示する。
+    
+    
+    【タスク編集】
+    
+    
+    選択したタスクを編集する。
+    
+    
+    【タスク削除】
+    
+    
+    選択したタスクを削除する。
+
 paths:
   /:
     get:
@@ -89,7 +159,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【1 <= id <= 151】ポケモン図鑑詳細表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑詳細表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
+          description: 【1 <= id <= 151】ポケモン図鑑詳細表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑詳細表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「想定外のidが指定されました」とターミナルに表示する。
 
   /pictorial/lists/{id}/edit:
     get:
@@ -105,7 +175,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【1 <= id <= 151】ポケモン図鑑編集表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑編集表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
+          description: 【1 <= id <= 151】ポケモン図鑑編集表示に成功する。/pictorial/lists/{id}に遷移する。【それ以外】ポケモン図鑑編集表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「想定外のidが指定されました」とターミナルに表示する。
 
   /pictorial/lists/update:
     post:
@@ -136,7 +206,7 @@ paths:
             type: string
       responses:
         '302':
-          description: ポケモン図鑑の編集に成功する。pictorial/lists/{id}に遷移する。
+          description: 【idが重複しない】ポケモン図鑑の編集に成功する。pictorial/lists/{id}に遷移する。【それ以外】/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「更新処理失敗」とターミナルに表示する。
 
   /task/tasks:
     get:
@@ -162,7 +232,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【idが存在する】ミッション詳細表示に成功する。【それ以外】ミッション詳細表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
+          description: 【idが存在する】ミッション詳細表示に成功する。【それ以外】ミッション詳細表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「想定外のidが指定されました」とターミナルに表示する。
 
   /task/tasks/{id}/edit:
     get:
@@ -178,7 +248,7 @@ paths:
             type: integer
       responses:
         '200':
-          description: 【idが存在する】ミッション編集画面表示に成功する。【それ以外】ミッション編集画面表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。
+          description: 【idが存在する】ミッション編集画面表示に成功する。【それ以外】ミッション編集画面表示に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「想定外のidが指定されました」とターミナルに表示する。
 
   /task/tasks/update:
     post:
@@ -199,10 +269,10 @@ paths:
             type: string
       responses:
         '302':
-          description: ミッション詳細の編集に成功する。task/tasks/{id}に遷移する。
+          description: 【idが存在する】ミッション詳細の編集に成功する。task/tasks/{id}に遷移する。【idが存在しない】ミッション詳細の編集に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「更新処理失敗」とターミナルに表示する。
 
   /task/tasks/delete/{id}:
-    get:
+    post:
       summary: ミッション削除処理
       description: |
       tags:
@@ -215,7 +285,7 @@ paths:
             type: integer
       responses:
         '302':
-          description: 【idが存在する時】ミッション削除に成功する。/task/tasksに遷移する。【それ以外】ミッション削除に失敗する。/failsafe/failsafeのエラー画面に遷移する。
+          description: 【idが存在する時】ミッション削除に成功する。/task/tasksに遷移する。【それ以外】ミッション削除に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「削除処理失敗」とターミナルに表示する。
 
   /task/register:
     get:
@@ -241,4 +311,4 @@ paths:
             type: string
       responses:
         '302':
-          description: ミッション登録に成功する。task/tasksに遷移する。
+          description: 【idが重複しない】ミッション登録に成功する。task/tasksに遷移する。【それ以外】ミッション登録に失敗する。/failsafe/failsafeのエラー画面に遷移する。デバッグログとして「登録に失敗しました」とターミナルに表示する。

@@ -1,6 +1,7 @@
 package com.demo.pokepb.controller;
 
 import com.demo.pokepb.entity.Pokemon;
+import com.demo.pokepb.exception.MyException;
 import com.demo.pokepb.service.PokemonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +30,7 @@ public class PokemonController {
      */
     @GetMapping("/pictorial/lists/{id}")
     public String detailEditPokemon(@PathVariable("id") int id, Model model) {
-        if(id == 0 || id >= 152) {
-            /* 想定外のidが要求された場合 */
-            return "failsafe/failsafe";
-        } else {
-            /* 初代ポケモンは151匹。増えることはない。 */
-            model.addAttribute("details", pokemonService.findIdPokemon(id));
-            return "pictorial/details";
-        }
+        return pokemonService.findIdPokemon(id, "details" ,model);
     }
 
     /***
@@ -44,14 +38,7 @@ public class PokemonController {
      */
     @GetMapping("/pictorial/lists/{id}/edit")
     public String editPokemon(@PathVariable("id") int id, Model model) {
-        if(id == 0 || id >= 152) {
-            /* 想定外のidが要求された場合 */
-            return "failsafe/failsafe";
-        } else {
-            /* 初代ポケモンは151匹。増えることはない。 */
-            model.addAttribute("edit", pokemonService.findIdPokemon(id));
-            return "pictorial/edit";
-        }
+        return pokemonService.findIdPokemon(id, "edit", model);
     }
 
     /***
@@ -62,13 +49,6 @@ public class PokemonController {
     @RequestMapping(value = "/pictorial/lists/update", method = RequestMethod.POST)
     public String updatePokemon(@Validated @ModelAttribute Pokemon pokemon) {
         // ポケモンの更新
-        int update = pokemonService.updateIdPokemon(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
-        if(update == 1){
-            /* 更新成功した場合はポケモン詳細画面に遷移 */
-            return "redirect:/pictorial/lists/" + pokemon.getId();
-        }else{
-            /* 更新失敗した場合はエラー */
-            return "failsafe/failsafe";
-        }
+        return pokemonService.updateIdPokemon(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
     }
 }

@@ -47,7 +47,9 @@
         <tr th:each="detail: ${details}">
             <td th:text="${detail.detail}"></td>
             <td><a th:href="@{/task/tasks/{id}/edit(id=*{detail.id})}" class="btn btn-secondary">編集</a></td>
-            <td><a th:href="@{/task/tasks/delete/{id}(id=*{detail.id})}" class="btn btn-secondary">削除</a></td>
+            <form th:action="@{/task/tasks/delete/{id}(id=*{detail.id})}" th:method="post">
+                <td><input type="submit" value="削除" class="btn btn-secondary"></td>
+            </form>
         </tr>
         </tbody>
     </table>
