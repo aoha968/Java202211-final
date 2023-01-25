@@ -20,12 +20,12 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public Pokemon findIdPokemon(int id) {
+    public Pokemon findPokemonById(int id) {
         return pokemonMapper.findIdPokemon(id);
     }
 
     @Override
-    public int updateIdPokemon(int id, String type1, String type2) {
+    public int updatePokemonById(int id, String type1, String type2) {
         return pokemonMapper.updateIdPokemon(id, type1, type2);
     }
 }

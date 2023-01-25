@@ -35,7 +35,7 @@ public class PokemonController {
                 throw new MyException("想定外のidが指定されました");
             } else {
                 /* 初代ポケモンは151匹。増えることはない。 */
-                model.addAttribute("details", pokemonService.findIdPokemon(id));
+                model.addAttribute("details", pokemonService.findPokemonById(id));
                 return "pictorial/details";
             }
         } catch(MyException e) {
@@ -53,7 +53,7 @@ public class PokemonController {
                 throw new MyException("想定外のidが指定されました");
             } else {
                 /* 初代ポケモンは151匹。増えることはない。 */
-                model.addAttribute("edit", pokemonService.findIdPokemon(id));
+                model.addAttribute("edit", pokemonService.findPokemonById(id));
                 return "pictorial/edit";
             }
         } catch(MyException e) {
@@ -70,7 +70,7 @@ public class PokemonController {
     public String updatePokemon(@Validated @ModelAttribute Pokemon pokemon) {
         int retVal;
         try {
-            retVal = pokemonService.updateIdPokemon(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
+            retVal = pokemonService.updatePokemonById(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
             if(retVal != 1) {
                 throw new MyException("更新処理失敗");
             } else {

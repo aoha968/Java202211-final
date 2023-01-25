@@ -7,11 +7,11 @@ import java.util.List;
 public interface TaskService {
     List<Task> findAllTask();
 
-    Task findIdTask(int id);
+    Task findTaskById(int id);
 
-    int updateIdTask(int id, String detail);
+    int updateTaskById(int id, String detail);
 
-    boolean deleteIdTask(int id);
+    boolean deleteTaskById(int id);
 
     String registerTask(String detail);
 }

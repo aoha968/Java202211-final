@@ -7,7 +7,7 @@ import java.util.List;
 public interface PokemonService {
     List<Pokemon> findAllPokemon();
 
-    Pokemon findIdPokemon(int id);
+    Pokemon findPokemonById(int id);
 
-    int updateIdPokemon(int id, String type1, String type2);
+    int updatePokemonById(int id, String type1, String type2);
 }

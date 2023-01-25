@@ -48,7 +48,7 @@ public class TaskController {
     public String detailEditTask(@PathVariable("id") int id, Model model) {
         Task retVal;
         try {
-            retVal = taskService.findIdTask(id);
+            retVal = taskService.findTaskById(id);
             if(retVal == null) {
                 throw new MyException("想定外のidが指定されました");
             } else {
@@ -67,7 +67,7 @@ public class TaskController {
     public String editTask(@PathVariable("id") int id, Model model) {
         Task retVal;
         try {
-            retVal = taskService.findIdTask(id);
+            retVal = taskService.findTaskById(id);
             if(retVal == null) {
                 throw new MyException("想定外のidが指定されました");
             } else {
@@ -88,7 +88,7 @@ public class TaskController {
     public String updateTask(@Validated @ModelAttribute Task task) {
         int retVal;
         try {
-            retVal = taskService.updateIdTask(task.getId(), task.getDetail());
+            retVal = taskService.updateTaskById(task.getId(), task.getDetail());
             if(retVal != 1) {
                 throw new MyException("更新処理失敗");
             } else {
@@ -107,7 +107,7 @@ public class TaskController {
     @RequestMapping(value = "/task/tasks/delete/{id}", method = RequestMethod.POST)
     public String deleteTask(@PathVariable("id") int id) {
         boolean retVal;
-        retVal = taskService.deleteIdTask(id);
+        retVal = taskService.deleteTaskById(id);
         try {
             if(retVal == false){
                 throw new MyException("削除処理失敗");

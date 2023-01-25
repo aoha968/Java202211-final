@@ -20,17 +20,17 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task findIdTask(int id) {
+    public Task findTaskById(int id) {
         return taskMapper.findIdTask(id);
     }
 
     @Override
-    public int updateIdTask(int id, String detail) {
+    public int updateTaskById(int id, String detail) {
         return taskMapper.updateIdTask(id, detail);
     }
 
     @Override
-    public boolean deleteIdTask(int id) {
+    public boolean deleteTaskById(int id) {
         return taskMapper.deleteIdTask(id);
     }
 
