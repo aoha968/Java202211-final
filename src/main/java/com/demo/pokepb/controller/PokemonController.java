@@ -1,7 +1,6 @@
 package com.demo.pokepb.controller;
 
 import com.demo.pokepb.entity.Pokemon;
-import com.demo.pokepb.exception.MyException;
 import com.demo.pokepb.service.PokemonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +18,7 @@ public class PokemonController {
     /***
      * ログイン後のポケモン一覧表示画面
      */
-    @GetMapping("/pictorial/lists")
+    @RequestMapping(value = "/pictorial/lists", method = RequestMethod.GET)
     public String listRegisteredPokemon(Model model){
         model.addAttribute("lists", pokemonService.findAllPokemon());
         return "pictorial/lists";
@@ -28,7 +27,7 @@ public class PokemonController {
     /***
      * ログイン後のポケモン詳細画面
      */
-    @GetMapping("/pictorial/lists/{id}")
+    @RequestMapping(value = "/pictorial/lists/{id}", method = RequestMethod.GET)
     public String detailEditPokemon(@PathVariable("id") int id, Model model) {
         return pokemonService.findIdPokemon(id, "details" ,model);
     }
@@ -36,7 +35,7 @@ public class PokemonController {
     /***
      * ログイン後のポケモン編集画面
      */
-    @GetMapping("/pictorial/lists/{id}/edit")
+    @RequestMapping(value = "/pictorial/lists/{id}/edit", method = RequestMethod.GET)
     public String editPokemon(@PathVariable("id") int id, Model model) {
         return pokemonService.findIdPokemon(id, "edit", model);
     }

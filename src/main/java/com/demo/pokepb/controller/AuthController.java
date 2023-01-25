@@ -21,7 +21,7 @@ public class AuthController {
     /***
      * トップページ表示
      */
-    @GetMapping("/")
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home(){
         return "login/index";
     }
@@ -29,7 +29,7 @@ public class AuthController {
     /***
      * ログイン画面表示
      */
-    @GetMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginForm() {
         return "login/login";
     }
@@ -37,7 +37,7 @@ public class AuthController {
     /***
      * 登録画面表示
      */
-    @GetMapping("/register")
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String showRegistrationForm(Model model){
         UserDto user = new UserDto();
         model.addAttribute("user", user);
@@ -47,7 +47,7 @@ public class AuthController {
     /***
      * 登録画面からの登録処理
      */
-    @PostMapping("/register/save")
+    @RequestMapping(value = "/register/save", method = RequestMethod.POST)
     public String registration(@Valid @ModelAttribute("user") UserDto user,
                                BindingResult result,
                                Model model){
@@ -66,7 +66,7 @@ public class AuthController {
     /***
      * フェールセーフ画面表示
      */
-    @RequestMapping("/failsafe")
+    @RequestMapping(value = "/failsafe", method = RequestMethod.GET)
     public String error() {
         return "failsafe/failsafe";
     }

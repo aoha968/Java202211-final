@@ -18,7 +18,7 @@ public class TaskController {
     /***
      * ログイン後のタスク一覧表示画面
      */
-    @GetMapping("/task/tasks")
+    @RequestMapping(value = "/task/tasks", method = RequestMethod.GET)
     public String registerAllTask(Model model) {
         model.addAttribute("tasks", taskService.findAllTask());
         return "task/tasks";
@@ -27,7 +27,7 @@ public class TaskController {
     /***
      * ログイン後のタスク追加画面に遷移するためのリンク
      */
-    @RequestMapping("/task/register")
+    @RequestMapping(value = "/task/register", method = RequestMethod.GET)
     public String displayRegisterTask() {
         return "task/register";
     }
@@ -43,7 +43,7 @@ public class TaskController {
     /***
      * ログイン後のタスク詳細画面
      */
-    @GetMapping("/task/tasks/{id}")
+    @RequestMapping(value = "/task/tasks/{id}", method = RequestMethod.GET)
     public String detailEditTask(@PathVariable("id") int id, Model model) {
         return taskService.findIdTask(id, "details", model);
     }
@@ -51,7 +51,7 @@ public class TaskController {
     /***
      * ログイン後のタスク編集画面
      */
-    @GetMapping("/task/tasks/{id}/edit")
+    @RequestMapping(value = "/task/tasks/{id}/edit", method = RequestMethod.GET)
     public String editTask(@PathVariable("id") int id, Model model) {
         return taskService.findIdTask(id, "edit", model);
     }
