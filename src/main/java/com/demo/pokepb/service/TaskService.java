@@ -13,5 +13,5 @@ public interface TaskService {
 
     boolean deleteTaskById(int id);
 
-    String registerTask(String detail);
+    boolean registerTask(String detail);
 }

@@ -38,7 +38,17 @@ public class TaskController {
      */
     @RequestMapping(value = "/task/add", method = RequestMethod.POST)
     public String registerTask(@RequestParam String addText) {
-        return taskService.registerTask(addText);
+        boolean retVal;
+        try {
+            retVal = taskService.registerTask(addText);
+            if(retVal == false){
+                throw new MyException("登録に失敗しました");
+            }
+            /* 追加成功した場合はタスク一覧画面に遷移 */
+            return "redirect:/task/tasks";
+        } catch (MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 
     /***

@@ -35,16 +35,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public String registerTask(String detail) {
-        boolean retVal = taskMapper.registerTask(detail);
-        try {
-            if(retVal == false){
-                throw new MyException("登録に失敗しました");
-            }
-            /* 追加成功した場合はタスク一覧画面に遷移 */
-            return "redirect:/task/tasks";
-        } catch (MyException e) {
-            return "failsafe/failsafe";
-        }
+    public boolean registerTask(String detail) {
+        return taskMapper.registerTask(detail);
     }
 }
