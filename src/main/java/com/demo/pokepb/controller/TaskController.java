@@ -1,6 +1,7 @@
 package com.demo.pokepb.controller;
 
 import com.demo.pokepb.entity.Task;
+import com.demo.pokepb.exception.MyException;
 import com.demo.pokepb.service.TaskService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +46,18 @@ public class TaskController {
      */
     @RequestMapping(value = "/task/tasks/{id}", method = RequestMethod.GET)
     public String detailEditTask(@PathVariable("id") int id, Model model) {
-        return taskService.findIdTask(id, "details", model);
+        Task retVal;
+        try {
+            retVal = taskService.findIdTask(id);
+            if(retVal == null) {
+                throw new MyException("想定外のidが指定されました");
+            } else {
+                model.addAttribute("details", retVal);
+                return "task/details";
+            }
+        } catch (MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 
     /***
@@ -53,7 +65,18 @@ public class TaskController {
      */
     @RequestMapping(value = "/task/tasks/{id}/edit", method = RequestMethod.GET)
     public String editTask(@PathVariable("id") int id, Model model) {
-        return taskService.findIdTask(id, "edit", model);
+        Task retVal;
+        try {
+            retVal = taskService.findIdTask(id);
+            if(retVal == null) {
+                throw new MyException("想定外のidが指定されました");
+            } else {
+                model.addAttribute("edit", retVal);
+                return "task/edit";
+            }
+        } catch (MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 
     /***
@@ -63,11 +86,37 @@ public class TaskController {
      */
     @RequestMapping(value = "/task/tasks/update", method = RequestMethod.POST)
     public String updateTask(@Validated @ModelAttribute Task task) {
-        return taskService.updateIdTask(task.getId(), task.getDetail());
+        int retVal;
+        try {
+            retVal = taskService.updateIdTask(task.getId(), task.getDetail());
+            if(retVal != 1) {
+                throw new MyException("更新処理失敗");
+            } else {
+                return "redirect:/task/tasks/" + task.getId();
+            }
+        } catch(MyException e){
+            return "failsafe/failsafe";
+        }
     }
 
+    /***
+     * ログイン後のタスク削除
+     * 成功すれば一覧画面へ戻る
+     * 失敗の場合は編集画面へ戻る
+     */
     @RequestMapping(value = "/task/tasks/delete/{id}", method = RequestMethod.POST)
     public String deleteTask(@PathVariable("id") int id) {
-        return taskService.deleteIdTask(id);
+        boolean retVal;
+        retVal = taskService.deleteIdTask(id);
+        try {
+            if(retVal == false){
+                throw new MyException("削除処理失敗");
+            }else {
+                /* 更新成功した場合はタスク一覧画面に遷移 */
+                return "redirect:/task/tasks";
+            }
+        } catch (MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 }

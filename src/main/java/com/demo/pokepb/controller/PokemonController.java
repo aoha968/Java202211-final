@@ -1,6 +1,7 @@
 package com.demo.pokepb.controller;
 
 import com.demo.pokepb.entity.Pokemon;
+import com.demo.pokepb.exception.MyException;
 import com.demo.pokepb.service.PokemonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,17 @@ public class PokemonController {
      */
     @RequestMapping(value = "/pictorial/lists/{id}", method = RequestMethod.GET)
     public String detailEditPokemon(@PathVariable("id") int id, Model model) {
-        return pokemonService.findIdPokemon(id, "details" ,model);
+        try {
+            if (id == 0 || id >= 152) {
+                throw new MyException("想定外のidが指定されました");
+            } else {
+                /* 初代ポケモンは151匹。増えることはない。 */
+                model.addAttribute("details", pokemonService.findIdPokemon(id));
+                return "pictorial/details";
+            }
+        } catch(MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 
     /***
@@ -37,7 +48,17 @@ public class PokemonController {
      */
     @RequestMapping(value = "/pictorial/lists/{id}/edit", method = RequestMethod.GET)
     public String editPokemon(@PathVariable("id") int id, Model model) {
-        return pokemonService.findIdPokemon(id, "edit", model);
+        try {
+            if (id == 0 || id >= 152) {
+                throw new MyException("想定外のidが指定されました");
+            } else {
+                /* 初代ポケモンは151匹。増えることはない。 */
+                model.addAttribute("edit", pokemonService.findIdPokemon(id));
+                return "pictorial/edit";
+            }
+        } catch(MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 
     /***
@@ -47,7 +68,16 @@ public class PokemonController {
      */
     @RequestMapping(value = "/pictorial/lists/update", method = RequestMethod.POST)
     public String updatePokemon(@Validated @ModelAttribute Pokemon pokemon) {
-        // ポケモンの更新
-        return pokemonService.updateIdPokemon(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
+        int retVal;
+        try {
+            retVal = pokemonService.updateIdPokemon(pokemon.getId(), pokemon.getType1(), pokemon.getType2());
+            if(retVal != 1) {
+                throw new MyException("更新処理失敗");
+            } else {
+                return "redirect:/pictorial/lists/" + pokemon.getId();
+            }
+        } catch(MyException e) {
+            return "failsafe/failsafe";
+        }
     }
 }
