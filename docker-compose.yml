@@ -11,10 +11,46 @@ services:
       MYSQL_DATABASE: pokemon_database
       MYSQL_USER: user
       MYSQL_PASSWORD: password
+      TZ: "Asia/Tokyo"
     ports:
       - 3307:3306
     volumes:
       - ./sql:/docker-entrypoint-initdb.d
       - my-vol:/var/lib/mysql
+      - my-vol:/etc/mysql/conf.d/my.cnf
+
+  app:
+    image: openjdk:17
+    command: >
+      sh -c '
+        microdnf install findutils
+        sh gradlew build
+        java -jar build/libs/pokepb-0.0.1-SNAPSHOT.jar
+      '
+    ports:
+      - "8080:8080"
+    tty: true
+    depends_on:
+      - db
+    volumes:
+      - ./:/srv:cached
+    working_dir: /srv
+
+  swagger-editor:
+    image: swaggerapi/swagger-editor
+    container_name: "swagger-editor"
+    ports:
+      - "8001:8080"
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    container_name: "swagger-ui"
+    ports:
+      - "8002:8080"
+    volumes:
+      - ./document/openapi.yaml:/openapi.yaml
+    environment:
+      SWAGGER_JSON: /openapi.yaml
+
 volumes:
   my-vol:

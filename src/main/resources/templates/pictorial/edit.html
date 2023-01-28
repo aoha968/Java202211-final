@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>ポケモン編集画面</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body class="bg04">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">Pokedex ▶︎ ポケモン情報編集</a>
+        <div class="navbar navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/pictorial/lists}">図鑑一覧</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/task/tasks}">ミッション一覧</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/task/register}">ミッション登録</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="pd-top"></div>
+    <form th:action="@{/pictorial/lists/update}" th:object="${edit}" th:method="post">
+        <div>
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">No</div>
+                <div class="col py-2 border">
+                    <input type="text" readonly class="form-control" th:field="*{id}">
+                </div>
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">モンスター名</div>
+                <div class="col py-2 border">
+                    <input type="text" readonly class="form-control" th:field="*{name}">
+                </div>
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">タイプ1<span class="text-danger">※</span></div>
+                <div class="col py-2 border">
+                    <input type="text" class="form-control" th:field="*{type1}">
+                </div>
+            </div>
+            <div class="row mx-md-n5">
+                <div class="col-2 pt-3 border bg-light">タイプ2<span class="text-danger">※</span></div>
+                <div class="col py-2 border">
+                    <input type="text" class="form-control" th:field="*{type2}">
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="text-center">
+            <input type="submit" class="btn btn-primary" value="保存">
+            <a th:href="@{/pictorial/lists/{id}(id=*{id})}" class="btn btn-secondary">キャンセル</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

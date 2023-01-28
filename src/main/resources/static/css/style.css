@@ -1,0 +1,54 @@
+.bg01 {
+    min-height: 100%;
+    background-image: url(../images/bg_01.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.bg02 {
+    background-image: url(../images/bg_02.jpg);
+}
+
+.bg03 {
+    background-image: url(../images/bg_03.jpg);
+}
+
+.bg04 {
+    background-image: url(../images/bg_04.jpg);
+}
+
+.bg05 {
+    background-image: url(../images/bg_05.jpg);
+}
+
+.bg06 {
+    background-image: url(../images/bg_06.jpg);
+}
+
+.bg07 {
+    background-image: url(../images/bg_07.jpg);
+}
+
+.bg08 {
+    background-image: url(../images/bg_08.jpg);
+}
+
+.bg09 {
+    background-image: url(../images/bg_09.jpg);
+}
+
+.bg10 {
+    background-image: url(../images/bg_10.jpg);
+}
+
+.bg11 {
+    background-image: url(../images/bg_11.jpg);
+}
+
+.pd-top {
+   padding-top: 60px;
+}
+
+.navbar {
+    display: flex;
+}
