@@ -42,12 +42,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    private UserDto convertEntityToDto(User user){
-        UserDto userDto = new UserDto();
-        userDto.setEmail(user.getEmail());
-        return userDto;
-    }
-
     private Role checkRoleExist() {
         Role role = new Role();
         role.setName("ROLE_ADMIN");
