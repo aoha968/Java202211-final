@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -120,6 +121,7 @@ public class PokemonControllerTest {
      * ポケモン編集内容を更新のテスト
      */
     @Test
+    @Transactional
     void ログインしていないかつポケモンid1の編集内容を更新(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(1, "フシギダネ", "タイプ1", "タイプ2");
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
@@ -128,6 +130,7 @@ public class PokemonControllerTest {
     }
 
     @Test
+    @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
     void ログイン中かつポケモンid0の編集内容を更新(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(0, "該当ポケモンなし", "ダミー1", "ダミー2");
@@ -138,6 +141,7 @@ public class PokemonControllerTest {
     }
 
     @Test
+    @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
     void ログイン中かつポケモンid1の編集内容を更新(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(1, "フシギダネ", "タイプ1", "タイプ2");
@@ -148,6 +152,7 @@ public class PokemonControllerTest {
     }
 
     @Test
+    @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
     void ログイン中かつポケモンid151の編集内容を更新(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(151, "ミュウ", "タイプ151", "タイプ152");
@@ -158,6 +163,7 @@ public class PokemonControllerTest {
     }
 
     @Test
+    @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
     void ログイン中かつポケモンid152の編集内容を更新(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(152, "該当ポケモンなし", "ダミー1", "ダミー2");
