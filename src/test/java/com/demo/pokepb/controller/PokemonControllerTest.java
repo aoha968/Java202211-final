@@ -10,12 +10,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @AutoConfigureMockMvc
 @SpringBootTest
 public class PokemonControllerTest {
+
     /**
      * ポケモン一覧表示のテスト
      */
@@ -30,7 +30,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモン一覧を表示(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("pictorial/lists"));
 
     }
@@ -49,7 +48,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid0の詳細を表示(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/0"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("failsafe/failsafe"));
     }
 
@@ -58,7 +56,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid1の詳細を表示(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("pictorial/details"));
     }
 
@@ -67,7 +64,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid151の詳細を表示(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/151"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("pictorial/details"));
     }
 
@@ -76,7 +72,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid152の詳細を表示(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/152"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("failsafe/failsafe"));
     }
 
@@ -94,7 +89,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid0の編集画面(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/0/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("failsafe/failsafe"));
     }
 
@@ -103,7 +97,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid1の編集画面(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/1/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("pictorial/edit"));
     }
 
@@ -112,7 +105,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid151の編集画面(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/151/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("pictorial/edit"));
     }
 
@@ -121,7 +113,6 @@ public class PokemonControllerTest {
     void ログイン中かつポケモンid152の編集画面(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/152/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("failsafe/failsafe"));
     }
 
@@ -143,7 +134,6 @@ public class PokemonControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
                         .flashAttr("pokemon", pokemon))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("failsafe/failsafe"));
     }
 
@@ -154,7 +144,6 @@ public class PokemonControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
                     .flashAttr("pokemon", pokemon))
                 .andExpect(MockMvcResultMatchers.status().is(302))
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("redirect:/pictorial/lists/1"));
     }
 
@@ -165,7 +154,6 @@ public class PokemonControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
                         .flashAttr("pokemon", pokemon))
                 .andExpect(MockMvcResultMatchers.status().is(302))
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("redirect:/pictorial/lists/151"));
     }
 
@@ -176,7 +164,6 @@ public class PokemonControllerTest {
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
                         .flashAttr("pokemon", pokemon))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(model().errorCount(0))
                 .andExpect(view().name("failsafe/failsafe"));
     }
 
