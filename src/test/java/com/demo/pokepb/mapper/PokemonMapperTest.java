@@ -1,6 +1,7 @@
 package com.demo.pokepb.mapper;
 
 import com.demo.pokepb.entity.Pokemon;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,8 @@ public class PokemonMapperTest {
 
 
     @Test
-    public void findAllPokemonメソッドで取得() {
+    @DisplayName("findAllPokemonメソッドで取得")
+    public void Obtained_by_findAllPokemon_method() {
         List<Pokemon> pokemonList = pokemonMapper.findAllPokemon();
         assertEquals(151, pokemonList.size());
 
@@ -93,7 +95,8 @@ public class PokemonMapperTest {
     }
 
     @Test
-    public void findIdPokemonメソッドで取得() {
+    @DisplayName("findIdPokemonメソッドで取得")
+    public void Obtained_by_findIdPokemon_method() {
         for(int i = 0; i < 151; i++) {
             Pokemon pokemon = pokemonMapper.findIdPokemon(i+1);
             assertEquals(pokemon.getName(), ARRAY_POKEMON_NAME[i]);
@@ -104,7 +107,8 @@ public class PokemonMapperTest {
 
     @Test
     @Transactional
-    public void updateIdPokemonメソッドで取得() {
+    @DisplayName("updateIdPokemonメソッドで取得")
+    public void Obtained_by_updateIdPokemon_method() {
         for(int i = 0; i < 151; i++) {
             int count = pokemonMapper.updateIdPokemon(i+1, ARRAY_POKEMON_UPDATE[(i+4)%4][0], ARRAY_POKEMON_UPDATE[(i+4)%4][1] );
             Pokemon pokemon = pokemonMapper.findIdPokemon(i+1);

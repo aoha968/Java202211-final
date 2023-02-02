@@ -4,6 +4,7 @@ import com.demo.pokepb.entity.Task;
 import com.demo.pokepb.mapper.TaskMapper;
 import com.demo.pokepb.service.TaskService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
@@ -29,7 +31,8 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    void findAllTaskメソッドで3件取得できる() {
+    @DisplayName("findAllTaskメソッドで3件取得できる")
+    void Three_cases_can_be_obtained_with_the_findAllTask_method() {
         // TaskMapperのfindAllTask()に仮の戻り値を設定
         when(taskMapper.findAllTask()).thenReturn(List.of(
                 new Task(1, "task1"),
@@ -45,7 +48,8 @@ public class TaskServiceImplTest {
     }
 
     @Test
-    void findTaskByIdメソッドで1件取得できる() {
+    @DisplayName("findTaskByIdメソッドで1件取得できる")
+    void One_case_can_be_obtained_with_the_findTaskById_method() {
         // TaskMapperのfindTaskById()に仮の戻り値を決定
         when(taskMapper.findIdTask(1)).thenReturn(
                 new Task(1, "task1")
@@ -61,7 +65,8 @@ public class TaskServiceImplTest {
 
     @Test
     @Transactional
-    void updateTaskByIdメソッドで更新できる() {
+    @DisplayName("updateTaskByIdメソッドで更新できる")
+    void It_can_be_updated_with_the_updateTaskById_method() {
         // TaskMapperのupdateTaskById()に仮の戻り値を設定
         when(taskMapper.updateIdTask(1,"更新1")).thenReturn(1);
 
@@ -75,26 +80,30 @@ public class TaskServiceImplTest {
 
     @Test
     @Transactional
-    void deleteTaskByIdメソッドで削除できる() {
+    @DisplayName("deleteTaskByIdメソッドで削除できる")
+    void It_can_be_deleted_with_the_deleteTaskById_method() {
         // TaskMapperのdeleteTaskById()に仮の戻り値を設定
         when(taskMapper.deleteIdTask(1)).thenReturn(true);
 
         // テスト対象のメソッドを実行
         boolean retVal = taskService.deleteTaskById(1);
         // テスト対象の戻り値を検証
-        assertEquals(true, retVal);
+        assertTrue(retVal);
         // TaskMapperのdeleteTaskById()が1回呼ばれていることをチェック
         verify(taskMapper, times(1)).deleteIdTask(1);
     }
 
     @Test
     @Transactional
-    void registerTaskメソッドで登録できる() {
+    @DisplayName("registerTaskメソッドで登録できる")
+    void It_can_be_registered_with_the_registerTask_method() {
         // TaskMapperのregisterTask()に仮の戻り値を設定
         when(taskMapper.registerTask("登録1")).thenReturn(true);
 
         // テスト対象のメソッドを実行
         boolean retVal = taskService.registerTask("登録1");
+        // テスト対象の戻り値を検証
+        assertTrue(retVal);
         // TaskMapperのregisterTask()が1回呼ばれていることをチェック
         verify(taskMapper, times(1)).registerTask("登録1");
     }

@@ -4,6 +4,7 @@ import com.demo.pokepb.entity.Pokemon;
 import com.demo.pokepb.mapper.PokemonMapper;
 import com.demo.pokepb.service.PokemonService;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,7 +30,8 @@ public class PokemonServiceImplTest {
     }
 
     @Test
-    void findAllPokemonメソッドで3件取得できる(){
+    @DisplayName("findAllPokemonメソッドで3件取得できる")
+    void Three_cases_can_be_retrieved_with_the_findAllPokemon_method(){
         // PokemonMapperのfindAllPokemon()に仮の戻り値を設定
         when(pokemonMapper.findAllPokemon()).thenReturn(List.of(
                 new Pokemon(1, "name1", "type1-1", "type1-2"),
@@ -45,7 +47,8 @@ public class PokemonServiceImplTest {
     }
 
     @Test
-    void findPokemonByIdメソッドで1件取得できる(){
+    @DisplayName("findPokemonByIdメソッドで1件取得できる")
+    void One_case_can_be_retrieved_with_the_findPokemonById_method(){
         // PokemonMapperのfindPokemonById()に仮の戻り値を設定
         when(pokemonMapper.findIdPokemon(1)).thenReturn(
                 new Pokemon(1, "name1", "type1-1", "type1-2")
@@ -63,7 +66,8 @@ public class PokemonServiceImplTest {
 
     @Test
     @Transactional
-    void updatePokemonByIdメソッドで更新できる(){
+    @DisplayName("updatePokemonByIdメソッドで更新できる")
+    void It_can_be_updated_with_the_updatePokemonById_method(){
         // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
         when(pokemonMapper.updateIdPokemon(1, "更新1", "更新2")).thenReturn(1);
 
