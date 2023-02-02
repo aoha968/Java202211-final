@@ -1,11 +1,13 @@
-package com.demo.pokepb.service;
+package com.demo.pokepb.service.impl;
 
 import com.demo.pokepb.entity.Pokemon;
 import com.demo.pokepb.mapper.PokemonMapper;
+import com.demo.pokepb.service.PokemonService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +16,7 @@ import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
-public class PokemonServiceImpl {
+public class PokemonServiceImplTest {
     PokemonService pokemonService;
     PokemonMapper pokemonMapper;
 
@@ -23,7 +25,7 @@ public class PokemonServiceImpl {
         // PokemonMapperのモックを作成
         pokemonMapper = mock(PokemonMapper.class);
         // PokemonMapperのモックを利用してPokemonServiceImplインスタンスを作成
-        pokemonService = new com.demo.pokepb.service.impl.PokemonServiceImpl(pokemonMapper);
+        pokemonService = new PokemonServiceImpl(pokemonMapper);
     }
 
     @Test
@@ -59,10 +61,17 @@ public class PokemonServiceImpl {
         verify(pokemonMapper, times(1)).findIdPokemon(1);
     }
 
-    /**
-     *
     @Test
+    @Transactional
     void updatePokemonByIdメソッドで更新できる(){
+        // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
+        when(pokemonMapper.updateIdPokemon(1, "更新1", "更新2")).thenReturn(1);
+
+        // テスト対象のメソッドを実行
+        int count = pokemonService.updatePokemonById(1, "更新1", "更新2");
+        // テスト対象の戻り値を検証
+        assertEquals(1, count);
+        // PokemonMapperのupdateIdPokemon()が1回呼ばれていることをチェック
+        verify(pokemonMapper, times(1)).updateIdPokemon(1, "更新1", "更新2");
     }
-     */
 }
