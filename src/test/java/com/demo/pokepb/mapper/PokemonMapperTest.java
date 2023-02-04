@@ -15,6 +15,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PokemonMapperTest {
+    /*
+        @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)と
+        することでアプリケーションで設定されているDBを使用する。
+        初期設定として
+        ・151匹が登録されていること
+        ・登録されているデータに対して更新できること を確認することを目的としたテスト。
+     */
+
     @Autowired
     private PokemonMapper pokemonMapper;
 

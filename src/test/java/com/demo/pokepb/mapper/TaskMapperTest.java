@@ -16,6 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class TaskMapperTest {
+    /*
+        @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)と
+        することでアプリケーションで設定されているDBを使用する。
+        初期設定として
+        ・８件のタスクが登録されていること
+        ・新規登録ができること
+        ・登録されているデータに対して更新/削除できること を確認することを目的としたテスト。
+     */
     @Autowired
     public TaskMapper taskMapper;
 
