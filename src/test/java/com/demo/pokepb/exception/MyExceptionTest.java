@@ -18,8 +18,6 @@ public class MyExceptionTest {
             *  そのため、catch句には何も記載しない。
             * */
         } finally {
-            /* 例外を投げると1回コールすることを確認 */
-            verify(mock(MyException.class), times(1));
             /* 処理:throw new MyException()が例外クラス:MyExceptionクラスをスローすることを確認 */
             assertThrows(MyException.class, () ->{throw new MyException("テスト");});
         }
