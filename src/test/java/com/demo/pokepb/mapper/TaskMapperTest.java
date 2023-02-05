@@ -43,6 +43,11 @@ public class TaskMapperTest {
     public void Obtained_by_the_findAllTask_method() {
         List<Task> taskList = taskMapper.findAllTask();
         assertEquals(8, taskList.size());
+
+        // 内容を確認
+        for(int i = 0; i < 8; i++) {
+            assertEquals(taskMapper.findTaskById(i+1).getDetail(), ARRAY_TASK_DETAIL[i]);
+        }
     }
 
     @Test
@@ -58,11 +63,22 @@ public class TaskMapperTest {
     @Transactional
     @DisplayName("updateIdTaskメソッドで取得")
     public void Obtained_by_updateIdTask_method() {
-        for(int i = 0; i < 8; i++) {
-            int count = taskMapper.updateTaskById(i+1, "更新");
-            Task task = taskMapper.findTaskById(i+1);
-            assertEquals(task.getDetail(), "更新");
-            assertEquals(count, 1);
+        try {
+            for (int i = 0; i < 8; i++) {
+                int count = taskMapper.updateTaskById(i + 1, "更新");
+                Task task = taskMapper.findTaskById(i + 1);
+                assertEquals(task.getDetail(), "更新");
+                assertEquals(count, 1);
+            }
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
         }
     }
 
@@ -70,9 +86,26 @@ public class TaskMapperTest {
     @Transactional
     @DisplayName("deleteIdTaskメソッドで取得")
     public void Obtained_by_deleteIdTask_method() {
-        for(int i = 0; i < 8; i++) {
-            boolean retVal = taskMapper.deleteTaskById(i+1);
-            assertTrue(retVal);
+        try {
+            // 削除する前の件数を確認
+            assertEquals(taskMapper.findAllTask().size(), 8);
+
+            for (int i = 0; i < 8; i++) {
+                boolean retVal = taskMapper.deleteTaskById(i + 1);
+                assertTrue(retVal);
+            }
+
+            // 削除した後の件数を確認
+            assertEquals(taskMapper.findAllTask().size(), 0);
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
         }
     }
 
@@ -80,7 +113,28 @@ public class TaskMapperTest {
     @Transactional
     @DisplayName("registerTaskメソッドで取得")
     public void Obtained_by_registerTask_method() {
-        boolean retVal = taskMapper.registerTask("追加");
-        assertTrue(retVal);
+        try {
+            // 登録する前の件数を確認
+            assertEquals(taskMapper.findAllTask().size(), 8);
+
+            boolean retVal = taskMapper.registerTask("追加");
+            assertTrue(retVal);
+
+            // 登録した後の件数を確認
+            assertEquals(taskMapper.findAllTask().size(), 9);
+            // 登録した内容を確認
+            assertEquals(taskMapper.findTaskById(9).getDetail(), "追加");
+
+
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+            * @Transactionalは非検査例外発生時にロールバックする。
+            * ロールバックされるために例外を投げているためcatch句を用意。
+            * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+            * 現段階では課題として残し、ペンディングとする。
+            * */
+        }
     }
 }

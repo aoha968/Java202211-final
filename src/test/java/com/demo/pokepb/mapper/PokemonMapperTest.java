@@ -117,12 +117,23 @@ public class PokemonMapperTest {
     @Transactional
     @DisplayName("updateIdPokemonメソッドで取得")
     public void Obtained_by_updateIdPokemon_method() {
-        for(int i = 0; i < 151; i++) {
-            int count = pokemonMapper.updateIdPokemon(i+1, ARRAY_POKEMON_UPDATE[(i+4)%4][0], ARRAY_POKEMON_UPDATE[(i+4)%4][1] );
-            Pokemon pokemon = pokemonMapper.findIdPokemon(i+1);
-            assertEquals(pokemon.getType1(), ARRAY_POKEMON_UPDATE[(i+4)%4][0]);
-            assertEquals(pokemon.getType2(), ARRAY_POKEMON_UPDATE[(i+4)%4][1]);
-            assertEquals(count, 1);
+        try {
+            for (int i = 0; i < 151; i++) {
+                int count = pokemonMapper.updateIdPokemon(i + 1, ARRAY_POKEMON_UPDATE[(i + 4) % 4][0], ARRAY_POKEMON_UPDATE[(i + 4) % 4][1]);
+                Pokemon pokemon = pokemonMapper.findIdPokemon(i + 1);
+                assertEquals(pokemon.getType1(), ARRAY_POKEMON_UPDATE[(i + 4) % 4][0]);
+                assertEquals(pokemon.getType2(), ARRAY_POKEMON_UPDATE[(i + 4) % 4][1]);
+                assertEquals(count, 1);
+            }
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
         }
     }
 }
