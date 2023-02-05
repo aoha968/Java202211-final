@@ -75,4 +75,19 @@ public class PokemonServiceImplTest {
         // PokemonMapperのupdateIdPokemon()が1回呼ばれていることをチェック
         verify(pokemonMapper, times(1)).updateIdPokemon(1, "更新1", "更新2");
     }
+
+    @Test
+    @Transactional
+    @DisplayName("updatePokemonByIdメソッドで更新できない")
+    void It_can_not_be_updated_with_the_updatePokemonById_method(){
+        // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
+        when(pokemonMapper.updateIdPokemon(0, "更新1", "更新2")).thenReturn(0);
+
+        // テスト対象のメソッドを実行
+        int count = pokemonService.updatePokemonById(0, "更新1", "更新2");
+        // テスト対象の戻り値を検証
+        assertEquals(0, count);
+        // PokemonMapperのupdateIdPokemon()が1回呼ばれていることをチェック
+        verify(pokemonMapper, times(1)).updateIdPokemon(0, "更新1", "更新2");
+    }
 }
