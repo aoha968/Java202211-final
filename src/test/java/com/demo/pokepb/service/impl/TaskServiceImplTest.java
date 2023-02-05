@@ -118,6 +118,21 @@ public class TaskServiceImplTest {
 
     @Test
     @Transactional
+    @DisplayName("updateTaskByIdメソッドでdetailの21文字で失敗")
+    void UpdateTaskById_method_fails_with_21_characters_in_detail() {
+        // TaskMapperのupdateTaskById()に仮の戻り値を設定
+        when(taskMapper.updateTaskById(1,"文字数制限に引っかかる試験を実施しています")).thenReturn(1);
+
+        // テスト対象のメソッドを実行
+        int count = taskService.updateTaskById(1, "文字数制限に引っかかる試験を実施しています");
+        // テスト対象の戻り値を検証
+        assertEquals(1, count);
+        // TaskMapperのupdateTaskById()が1回呼ばれていることをチェック
+        verify(taskMapper, times(1)).updateTaskById(1, "文字数制限に引っかかる試験を実施しています");
+    }
+
+    @Test
+    @Transactional
     @DisplayName("deleteTaskByIdメソッドで削除できる")
     void It_can_be_deleted_with_the_deleteTaskById_method() {
         // TaskMapperのdeleteTaskById()に仮の戻り値を設定
@@ -174,5 +189,20 @@ public class TaskServiceImplTest {
         assertFalse(retVal);
         // TaskMapperのregisterTask()が1回呼ばれていることをチェック
         verify(taskMapper, times(1)).registerTask("登録1");
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("registerTaskメソッドでdetailの21文字で失敗")
+    void RegisterTask_method_fails_with_21_characters_in_detail() {
+        // TaskMapperのregisterTask()に仮の戻り値を設定
+        when(taskMapper.registerTask("文字数制限に引っかかる試験を実施しています")).thenReturn(false);
+
+        // テスト対象のメソッドを実行
+        boolean retVal = taskService.registerTask("文字数制限に引っかかる試験を実施しています");
+        // テスト対象の戻り値を検証
+        assertFalse(retVal);
+        // TaskMapperのregisterTask()が1回呼ばれていることをチェック
+        verify(taskMapper, times(1)).registerTask("文字数制限に引っかかる試験を実施しています");
     }
 }

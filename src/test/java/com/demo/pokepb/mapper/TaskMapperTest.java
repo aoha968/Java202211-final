@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -84,6 +83,27 @@ public class TaskMapperTest {
 
     @Test
     @Transactional
+    @DisplayName("updateTaskByIdメソッドでdetailの21文字で失敗")
+    public void UpdateTaskById_method_fails_with_21_characters_in_detail() {
+        try {
+                int count = taskMapper.updateTaskById(1, "文字数制限に引っかかる試験を実施しています");
+                Task task = taskMapper.findTaskById(1);
+                assertEquals(task.getDetail(), ARRAY_TASK_DETAIL[0]);
+                assertEquals(count, 0);
+                /* ロールバックさせるために非検査例外を投げる */
+                throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
+        }
+    }
+
+    @Test
+    @Transactional
     @DisplayName("deleteIdTaskメソッドで取得")
     public void Obtained_by_deleteIdTask_method() {
         try {
@@ -135,6 +155,32 @@ public class TaskMapperTest {
             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
             * 現段階では課題として残し、ペンディングとする。
             * */
+        }
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("registerTaskメソッドでdetailの21文字で失敗")
+    public void RegisterTask_method_fails_with_21_characters_in_detail() {
+        try {
+            // 登録する前の件数を確認
+            assertEquals(taskMapper.findAllTask().size(), 8);
+
+            boolean retVal = taskMapper.registerTask("文字数制限に引っかかる試験を実施しています");
+            assertFalse(retVal);
+
+            // 登録した後の件数を確認
+            assertEquals(taskMapper.findAllTask().size(), 8);
+
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
         }
     }
 }

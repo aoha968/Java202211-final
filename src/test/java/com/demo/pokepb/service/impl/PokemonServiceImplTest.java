@@ -90,4 +90,34 @@ public class PokemonServiceImplTest {
         // PokemonMapperのupdateIdPokemon()が1回呼ばれていることをチェック
         verify(pokemonMapper, times(1)).updateIdPokemon(0, "更新1", "更新2");
     }
+
+    @Test
+    @Transactional
+    @DisplayName("updatePokemonByIdメソッドでtype1の21文字で失敗")
+    void UpdatePokemonById_method_fails_with_21_characters_of_type1(){
+        // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
+        when(pokemonMapper.updateIdPokemon(1, "文字数制限に引っかかる試験を実施しています", "更新2")).thenReturn(0);
+
+        // テスト対象のメソッドを実行
+        int count = pokemonService.updatePokemonById(1, "文字数制限に引っかかる試験を実施しています", "更新2");
+        // テスト対象の戻り値を検証
+        assertEquals(0, count);
+        // PokemonMapperのupdateIdPokemon()が1回呼ばれていることをチェック
+        verify(pokemonMapper, times(1)).updateIdPokemon(1, "文字数制限に引っかかる試験を実施しています", "更新2");
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("updatePokemonByIdメソッドでtype2の21文字で失敗")
+    void UpdatePokemonById_method_fails_with_21_characters_of_type2(){
+        // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
+        when(pokemonMapper.updateIdPokemon(1, "更新1", "文字数制限に引っかかる試験を実施しています")).thenReturn(0);
+
+        // テスト対象のメソッドを実行
+        int count = pokemonService.updatePokemonById(1, "更新1", "文字数制限に引っかかる試験を実施しています");
+        // テスト対象の戻り値を検証
+        assertEquals(0, count);
+        // PokemonMapperのupdateIdPokemon()が1回呼ばれていることをチェック
+        verify(pokemonMapper, times(1)).updateIdPokemon(1, "更新1", "文字数制限に引っかかる試験を実施しています");
+    }
 }

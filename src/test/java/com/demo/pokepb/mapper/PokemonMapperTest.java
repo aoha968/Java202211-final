@@ -136,4 +136,52 @@ public class PokemonMapperTest {
              * */
         }
     }
+
+    @Test
+    @Transactional
+    @DisplayName("updatePokemonByIdメソッドでtype1の21文字で失敗")
+    public void UpdatePokemonById_method_fails_with_21_characters_of_type1() {
+        try {
+            for (int i = 0; i < 151; i++) {
+                int count = pokemonMapper.updateIdPokemon(i + 1, "文字数制限に引っかかる試験を実施しています", ARRAY_POKEMON_UPDATE[(i + 4) % 4][1]);
+                Pokemon pokemon = pokemonMapper.findIdPokemon(i + 1);
+                assertEquals(pokemon.getType1(), ARRAY_POKEMON_TYPE1[i+1]);
+                assertEquals(pokemon.getType2(), ARRAY_POKEMON_TYPE2[i+1]);
+                assertEquals(count, 0);
+            }
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
+        }
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("updatePokemonByIdメソッドでtype2の21文字で失敗")
+    public void UpdatePokemonById_method_fails_with_21_characters_of_type2() {
+        try {
+            for (int i = 0; i < 151; i++) {
+                int count = pokemonMapper.updateIdPokemon(i + 1, ARRAY_POKEMON_UPDATE[(i + 4) % 4][0], "文字数制限に引っかかる試験を実施しています");
+                Pokemon pokemon = pokemonMapper.findIdPokemon(i + 1);
+                assertEquals(pokemon.getType1(), ARRAY_POKEMON_TYPE1[i+1]);
+                assertEquals(pokemon.getType2(), ARRAY_POKEMON_TYPE2[i+1]);
+                assertEquals(count, 0);
+            }
+            /* ロールバックさせるために非検査例外を投げる */
+            throw new RuntimeException();
+        } catch(RuntimeException ex) {
+            /*
+             * @Transactionalは非検査例外発生時にロールバックする。
+             * ロールバックされるために例外を投げているためcatch句を用意。
+             * 本来ならDBUnitを利用してテスト実施前にテスト用のテーブルデータを構築することが望ましい。
+             * 現段階では課題として残し、ペンディングとする。
+             * */
+        }
+    }
 }
