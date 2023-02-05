@@ -1,7 +1,6 @@
 package com.demo.pokepb.service.impl;
 
 import com.demo.pokepb.entity.Task;
-import com.demo.pokepb.exception.MyException;
 import com.demo.pokepb.mapper.TaskMapper;
 import com.demo.pokepb.service.TaskService;
 import org.springframework.stereotype.Service;
@@ -21,17 +20,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public Task findTaskById(int id) {
-        return taskMapper.findIdTask(id);
+        return taskMapper.findTaskById(id);
     }
 
     @Override
     public int updateTaskById(int id, String detail) {
-        return taskMapper.updateIdTask(id, detail);
+        return taskMapper.updateTaskById(id, detail);
     }
 
     @Override
     public boolean deleteTaskById(int id) {
-        return taskMapper.deleteIdTask(id);
+        return taskMapper.deleteTaskById(id);
     }
 
     @Override

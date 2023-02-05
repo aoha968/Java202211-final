@@ -51,7 +51,7 @@ public class TaskServiceImplTest {
     @DisplayName("findTaskByIdメソッドで1件取得できる")
     void One_case_can_be_obtained_with_the_findTaskById_method() {
         // TaskMapperのfindTaskById()に仮の戻り値を決定
-        when(taskMapper.findIdTask(1)).thenReturn(
+        when(taskMapper.findTaskById(1)).thenReturn(
                 new Task(1, "task1")
         );
         // テスト対象のメソッドを実行
@@ -60,7 +60,7 @@ public class TaskServiceImplTest {
         assertEquals(1, task.getId());
         assertEquals("task1", task.getDetail());
         // TaskMapperのfindTaskById()が1回呼ばれていることをチェック
-        verify(taskMapper, times(1)).findIdTask(1);
+        verify(taskMapper, times(1)).findTaskById(1);
     }
 
     @Test
@@ -68,14 +68,14 @@ public class TaskServiceImplTest {
     @DisplayName("updateTaskByIdメソッドで更新できる")
     void It_can_be_updated_with_the_updateTaskById_method() {
         // TaskMapperのupdateTaskById()に仮の戻り値を設定
-        when(taskMapper.updateIdTask(1,"更新1")).thenReturn(1);
+        when(taskMapper.updateTaskById(1,"更新1")).thenReturn(1);
 
         // テスト対象のメソッドを実行
         int count = taskService.updateTaskById(1, "更新1");
         // テスト対象の戻り値を検証
         assertEquals(1, count);
         // TaskMapperのupdateTaskById()が1回呼ばれていることをチェック
-        verify(taskMapper, times(1)).updateIdTask(1, "更新1");
+        verify(taskMapper, times(1)).updateTaskById(1, "更新1");
     }
 
     @Test
@@ -83,14 +83,14 @@ public class TaskServiceImplTest {
     @DisplayName("deleteTaskByIdメソッドで削除できる")
     void It_can_be_deleted_with_the_deleteTaskById_method() {
         // TaskMapperのdeleteTaskById()に仮の戻り値を設定
-        when(taskMapper.deleteIdTask(1)).thenReturn(true);
+        when(taskMapper.deleteTaskById(1)).thenReturn(true);
 
         // テスト対象のメソッドを実行
         boolean retVal = taskService.deleteTaskById(1);
         // テスト対象の戻り値を検証
         assertTrue(retVal);
         // TaskMapperのdeleteTaskById()が1回呼ばれていることをチェック
-        verify(taskMapper, times(1)).deleteIdTask(1);
+        verify(taskMapper, times(1)).deleteTaskById(1);
     }
 
     @Test

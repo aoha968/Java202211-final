@@ -49,7 +49,7 @@ public class TaskMapperTest {
     @DisplayName("findIdTaskメソッドで取得")
     public void Obtained_by_findIdTask_method() {
         for(int i = 0; i < 8; i++) {
-            Task task = taskMapper.findIdTask(i+1);
+            Task task = taskMapper.findTaskById(i+1);
             assertEquals(task.getDetail(), ARRAY_TASK_DETAIL[i]);
         }
     }
@@ -59,8 +59,8 @@ public class TaskMapperTest {
     @DisplayName("updateIdTaskメソッドで取得")
     public void Obtained_by_updateIdTask_method() {
         for(int i = 0; i < 8; i++) {
-            int count = taskMapper.updateIdTask(i+1, "更新");
-            Task task = taskMapper.findIdTask(i+1);
+            int count = taskMapper.updateTaskById(i+1, "更新");
+            Task task = taskMapper.findTaskById(i+1);
             assertEquals(task.getDetail(), "更新");
             assertEquals(count, 1);
         }
@@ -71,7 +71,7 @@ public class TaskMapperTest {
     @DisplayName("deleteIdTaskメソッドで取得")
     public void Obtained_by_deleteIdTask_method() {
         for(int i = 0; i < 8; i++) {
-            boolean retVal = taskMapper.deleteIdTask(i+1);
+            boolean retVal = taskMapper.deleteTaskById(i+1);
             assertTrue(retVal);
         }
     }
