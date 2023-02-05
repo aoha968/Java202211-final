@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest
@@ -27,7 +28,7 @@ public class PokemonServiceImplTest {
     }
 
     @Test
-    @DisplayName("findAllPokemonメソッドで3件取得できる")
+    @DisplayName("正常系：findAllPokemonメソッドで3件取得できる")
     void Three_cases_can_be_retrieved_with_the_findAllPokemon_method(){
         // PokemonMapperのfindAllPokemon()に仮の戻り値を設定
         when(pokemonMapper.findAllPokemon()).thenReturn(List.of(
@@ -44,7 +45,20 @@ public class PokemonServiceImplTest {
     }
 
     @Test
-    @DisplayName("findPokemonByIdメソッドで1件取得できる")
+    @DisplayName("正常系：findAllPokemonメソッドで0件取得できる")
+    void No_cases_can_be_retrieved_with_the_findAllPokemon_method(){
+        // PokemonMapperのfindAllPokemon()に仮の戻り値を設定
+        when(pokemonMapper.findAllPokemon()).thenReturn(null);
+        // テスト対象のメソッドを実行
+        List<Pokemon> pokemonList = pokemonService.findAllPokemon();
+        // テスト対象の戻り値を検証
+        assertNull(pokemonList);
+        // PokemonMapperのfindAllPokemon()が1回呼ばれていることをチェック
+        verify(pokemonMapper, times(1)).findAllPokemon();
+    }
+
+    @Test
+    @DisplayName("正常系：findPokemonByIdメソッドで1件取得できる")
     void One_case_can_be_retrieved_with_the_findPokemonById_method(){
         // PokemonMapperのfindPokemonById()に仮の戻り値を設定
         when(pokemonMapper.findIdPokemon(1)).thenReturn(
@@ -62,8 +76,21 @@ public class PokemonServiceImplTest {
     }
 
     @Test
+    @DisplayName("異常系：findTaskByIdメソッドで1件取得できない")
+    void No_case_can_be_retrieved_with_the_findPokemonById_method(){
+        // PokemonMapperのfindPokemonById()に仮の戻り値を設定
+        when(pokemonMapper.findIdPokemon(0)).thenReturn(null);
+        // テスト対象のメソッドを実行
+        Pokemon pokemon = pokemonService.findPokemonById(0);
+        // テスト対象の戻り値を検証
+        assertNull(pokemon);
+        // PokemonMapperのfindIdPokemon()が1回呼ばれていることをチェック
+        verify(pokemonMapper, times(1)).findIdPokemon(0);
+    }
+
+    @Test
     @Transactional
-    @DisplayName("updatePokemonByIdメソッドで更新できる")
+    @DisplayName("正常系：updatePokemonByIdメソッドで更新できる")
     void It_can_be_updated_with_the_updatePokemonById_method(){
         // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
         when(pokemonMapper.updateIdPokemon(1, "更新1", "更新2")).thenReturn(1);
@@ -78,7 +105,7 @@ public class PokemonServiceImplTest {
 
     @Test
     @Transactional
-    @DisplayName("updatePokemonByIdメソッドで更新できない")
+    @DisplayName("異常系：updatePokemonByIdメソッドで更新できない")
     void It_can_not_be_updated_with_the_updatePokemonById_method(){
         // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
         when(pokemonMapper.updateIdPokemon(0, "更新1", "更新2")).thenReturn(0);
@@ -93,7 +120,7 @@ public class PokemonServiceImplTest {
 
     @Test
     @Transactional
-    @DisplayName("updatePokemonByIdメソッドでtype1の21文字で失敗")
+    @DisplayName("異常系：updatePokemonByIdメソッドでtype1の21文字で失敗")
     void UpdatePokemonById_method_fails_with_21_characters_of_type1(){
         // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
         when(pokemonMapper.updateIdPokemon(1, "文字数制限に引っかかる試験を実施しています", "更新2")).thenReturn(0);
@@ -108,7 +135,7 @@ public class PokemonServiceImplTest {
 
     @Test
     @Transactional
-    @DisplayName("updatePokemonByIdメソッドでtype2の21文字で失敗")
+    @DisplayName("異常系：updatePokemonByIdメソッドでtype2の21文字で失敗")
     void UpdatePokemonById_method_fails_with_21_characters_of_type2(){
         // PokemonMapperのupdateIdPokemon()に仮の戻り値を設定
         when(pokemonMapper.updateIdPokemon(1, "更新1", "文字数制限に引っかかる試験を実施しています")).thenReturn(0);

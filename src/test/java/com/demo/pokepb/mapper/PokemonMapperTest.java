@@ -89,7 +89,7 @@ public class PokemonMapperTest {
 
 
     @Test
-    @DisplayName("findAllPokemonメソッドで取得")
+    @DisplayName("正常系：findAllPokemonメソッドで取得")
     public void Obtained_by_findAllPokemon_method() {
         List<Pokemon> pokemonList = pokemonMapper.findAllPokemon();
         assertEquals(151, pokemonList.size());
@@ -103,7 +103,7 @@ public class PokemonMapperTest {
     }
 
     @Test
-    @DisplayName("findIdPokemonメソッドで取得")
+    @DisplayName("正常系：findIdPokemonメソッドで取得")
     public void Obtained_by_findIdPokemon_method() {
         for(int i = 0; i < 151; i++) {
             Pokemon pokemon = pokemonMapper.findIdPokemon(i+1);
@@ -115,7 +115,7 @@ public class PokemonMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("updateIdPokemonメソッドで取得")
+    @DisplayName("正常系：updateIdPokemonメソッドで取得")
     public void Obtained_by_updateIdPokemon_method() {
         try {
             for (int i = 0; i < 151; i++) {
@@ -139,7 +139,7 @@ public class PokemonMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("updatePokemonByIdメソッドでtype1の21文字で失敗")
+    @DisplayName("異常系：updatePokemonByIdメソッドでtype1の21文字で失敗")
     public void UpdatePokemonById_method_fails_with_21_characters_of_type1() {
         try {
             for (int i = 0; i < 151; i++) {
@@ -163,7 +163,7 @@ public class PokemonMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("updatePokemonByIdメソッドでtype2の21文字で失敗")
+    @DisplayName("異常系：updatePokemonByIdメソッドでtype2の21文字で失敗")
     public void UpdatePokemonById_method_fails_with_21_characters_of_type2() {
         try {
             for (int i = 0; i < 151; i++) {

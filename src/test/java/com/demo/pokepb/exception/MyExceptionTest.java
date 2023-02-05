@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 public class MyExceptionTest {
     @Test
-    @DisplayName("例外を投げる")
+    @DisplayName("異常系：例外を投げる")
     public void Raising_an_exception () {
         try {
             throw new MyException("テスト");

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class PokemonTest {
     @Test
-    @DisplayName("ポケモンクラスを作成してgetメソッド実行")
+    @DisplayName("正常系：ポケモンクラスを作成してgetメソッド実行")
     void Create_pokemon_class_and_execute_get_method() {
         Pokemon pokemon = new Pokemon(1,"name", "type1", "type2");
         assertEquals(pokemon.getId(), 1);

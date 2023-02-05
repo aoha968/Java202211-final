@@ -22,7 +22,7 @@ public class PokemonControllerTest {
      * ポケモン一覧表示のテスト
      */
     @Test
-    @DisplayName("ログインしていないかつポケモン一覧を表示")
+    @DisplayName("異常系：ログインしていないかつポケモン一覧を表示")
     void Not_logged_in_and_Displaying_a_list_of_pokemon(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists"))
                 .andExpect(MockMvcResultMatchers.status().is(302));
@@ -42,7 +42,7 @@ public class PokemonControllerTest {
      * ポケモン詳細画面のテスト
      */
     @Test
-    @DisplayName("ログインしていないかつポケモンid1の詳細を表示")
+    @DisplayName("異常系：ログインしていないかつポケモンid1の詳細を表示")
     void Not_logged_in_and_displaying_pokemon_id1_details(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/1"))
                 .andExpect(MockMvcResultMatchers.status().is(302));
@@ -50,7 +50,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid0の詳細を表示")
+    @DisplayName("正常系：ログイン中かつポケモンid0の詳細を表示")
     void Show_details_of_logged_in_and_pokemon_id0(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/0"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -59,7 +59,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid1の詳細を表示")
+    @DisplayName("正常系：ログイン中かつポケモンid1の詳細を表示")
     void Show_details_of_logged_in_and_pokemon_id1(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -68,7 +68,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid151の詳細を表示")
+    @DisplayName("正常系：ログイン中かつポケモンid151の詳細を表示")
     void Show_details_of_logged_in_and_pokemon_id151(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/151"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -77,7 +77,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid152の詳細を表示")
+    @DisplayName("異常系：ログイン中かつポケモンid152の詳細を表示")
     void Show_details_of_logged_in_and_pokemon_id152(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/152"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -88,7 +88,7 @@ public class PokemonControllerTest {
      * ポケモン編集画面のテスト
      */
     @Test
-    @DisplayName("ログインしていないかつポケモンid1の編集画面")
+    @DisplayName("異常系：ログインしていないかつポケモンid1の編集画面")
     void Edit_screen_with_no_login_and_pokemon_id1(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/1/edit"))
                 .andExpect(MockMvcResultMatchers.status().is(302));
@@ -96,7 +96,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid0の編集画面")
+    @DisplayName("異常系：ログイン中かつポケモンid0の編集画面")
     void Edit_screen_while_logged_in_and_with_pokemon_id0(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/0/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -105,7 +105,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid1の編集画面")
+    @DisplayName("正常系：ログイン中かつポケモンid1の編集画面")
     void Edit_screen_while_logged_in_and_with_pokemon_id1(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/1/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -114,7 +114,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid151の編集画面")
+    @DisplayName("正常系：ログイン中かつポケモンid151の編集画面")
     void Edit_screen_while_logged_in_and_with_pokemon_id151(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/151/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -123,7 +123,7 @@ public class PokemonControllerTest {
 
     @Test
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid152の編集画面")
+    @DisplayName("異常系：ログイン中かつポケモンid152の編集画面")
     void Edit_screen_while_logged_in_and_with_pokemon_id152(@Autowired MockMvc mvc) throws Exception {
         mvc.perform(MockMvcRequestBuilders.get("/pictorial/lists/152/edit"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -135,7 +135,7 @@ public class PokemonControllerTest {
      */
     @Test
     @Transactional
-    @DisplayName("ログインしていないかつポケモンid1の編集内容を更新")
+    @DisplayName("異常系：ログインしていないかつポケモンid1の編集内容を更新")
     void Update_edits_to_not_logged_in_and_pokemon_id1(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(1, "フシギダネ", "タイプ1", "タイプ2");
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
@@ -146,7 +146,7 @@ public class PokemonControllerTest {
     @Test
     @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid0の編集内容を更新")
+    @DisplayName("異常系：ログイン中かつポケモンid0の編集内容を更新")
     void Update_edits_while_logged_in_and_with_pokemon_id0(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(0, "該当ポケモンなし", "ダミー1", "ダミー2");
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
@@ -158,7 +158,7 @@ public class PokemonControllerTest {
     @Test
     @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid1の編集内容を更新")
+    @DisplayName("正常系：ログイン中かつポケモンid1の編集内容を更新")
     void Update_edits_while_logged_in_and_with_pokemon_id1(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(1, "フシギダネ", "タイプ1", "タイプ2");
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
@@ -170,7 +170,7 @@ public class PokemonControllerTest {
     @Test
     @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid151の編集内容を更新")
+    @DisplayName("正常系：ログイン中かつポケモンid151の編集内容を更新")
     void Update_edits_while_logged_in_and_with_pokemon_id151(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(151, "ミュウ", "タイプ151", "タイプ152");
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")
@@ -182,7 +182,7 @@ public class PokemonControllerTest {
     @Test
     @Transactional
     @WithMockUser(username = "admin", roles = { "ADMIN" })
-    @DisplayName("ログイン中かつポケモンid152の編集内容を更新")
+    @DisplayName("異常系：ログイン中かつポケモンid152の編集内容を更新")
     void Update_edits_while_logged_in_and_with_pokemon_id152(@Autowired MockMvc mvc) throws Exception {
         Pokemon pokemon = new Pokemon(152, "該当ポケモンなし", "ダミー1", "ダミー2");
         mvc.perform(MockMvcRequestBuilders.post("/pictorial/lists/update")

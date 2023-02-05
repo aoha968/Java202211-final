@@ -38,7 +38,7 @@ public class TaskMapperTest {
     };
 
     @Test
-    @DisplayName("findAllTaskメソッドで取得")
+    @DisplayName("正常系：findAllTaskメソッドで取得")
     public void Obtained_by_the_findAllTask_method() {
         List<Task> taskList = taskMapper.findAllTask();
         assertEquals(8, taskList.size());
@@ -50,7 +50,7 @@ public class TaskMapperTest {
     }
 
     @Test
-    @DisplayName("findIdTaskメソッドで取得")
+    @DisplayName("正常系：findIdTaskメソッドで取得")
     public void Obtained_by_findIdTask_method() {
         for(int i = 0; i < 8; i++) {
             Task task = taskMapper.findTaskById(i+1);
@@ -60,7 +60,7 @@ public class TaskMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("updateIdTaskメソッドで取得")
+    @DisplayName("正常系：updateIdTaskメソッドで取得")
     public void Obtained_by_updateIdTask_method() {
         try {
             for (int i = 0; i < 8; i++) {
@@ -83,7 +83,7 @@ public class TaskMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("updateTaskByIdメソッドでdetailの21文字で失敗")
+    @DisplayName("異常系：updateTaskByIdメソッドでdetailの21文字で失敗")
     public void UpdateTaskById_method_fails_with_21_characters_in_detail() {
         try {
                 int count = taskMapper.updateTaskById(1, "文字数制限に引っかかる試験を実施しています");
@@ -104,7 +104,7 @@ public class TaskMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("deleteIdTaskメソッドで取得")
+    @DisplayName("正常系：deleteIdTaskメソッドで取得")
     public void Obtained_by_deleteIdTask_method() {
         try {
             // 削除する前の件数を確認
@@ -131,7 +131,7 @@ public class TaskMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("registerTaskメソッドで取得")
+    @DisplayName("正常系：registerTaskメソッドで取得")
     public void Obtained_by_registerTask_method() {
         try {
             // 登録する前の件数を確認
@@ -160,7 +160,7 @@ public class TaskMapperTest {
 
     @Test
     @Transactional
-    @DisplayName("registerTaskメソッドでdetailの21文字で失敗")
+    @DisplayName("異常系：registerTaskメソッドでdetailの21文字で失敗")
     public void RegisterTask_method_fails_with_21_characters_in_detail() {
         try {
             // 登録する前の件数を確認
