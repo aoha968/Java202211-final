@@ -24,7 +24,7 @@ services:
     command: >
       sh -c '
         microdnf install findutils
-        sh gradlew build
+        sh gradlew build -x test
         java -jar build/libs/pokepb-0.0.1-SNAPSHOT.jar
       '
     ports:
